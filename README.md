@@ -3,8 +3,8 @@
 LangoBango
 
 ## Team Members:
-Alex Cavanagh
-Derek Etherton
+* Alex Cavanagh
+* Derek Etherton
 
 ## Application Description
 LangoBango is a web-based voice recognition application that 
@@ -33,11 +33,11 @@ LangoBango aims to be a more fun and whimsical way to train speech in different 
 * nodejs
 * Ajax
 * Express
-* Google Speech Recognition API
+* Web Speech API
 * Bootstrap
-* neDB? (Should we just be using a SQL db?)
+* neDB
 
 ## Challenges
 * Learning and implementing the speech recognition API
 * Learning and implementing the Bootstrap framework with responsiveness in mind
-* Implementing a meaningful progression system, which is tied to individual user accounts
+* Implementing meaningful progress tracking for individual users
