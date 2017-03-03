@@ -22,10 +22,11 @@ LangoBango aims to be a more fun and whimsical way to train speech in different 
 3. Calculate user score for each phrase, and aggregate for a final score
 
 ## Additional Features (Final)
-1. Improved UI, aiming for a responsive design
+1. Mobile-first responsive design using the Bootstrap framework
 2. User sign-in system that keeps track of user progress
 3. Support for common phrases in multiple languages
 4. Gameification aspects with meaningful difficulty scaling
+5. Valid HTTPS certificate on a custom domain name (langobango.me)
 
 ## Technology
 * HTML
@@ -35,9 +36,13 @@ LangoBango aims to be a more fun and whimsical way to train speech in different 
 * Express
 * Web Speech API
 * Bootstrap
-* neDB
+* mongoDB
+* Hosting: Heroku
+* Domain: Namecheap Education
+* HTTPS Certification: Let's Encrypt
 
 ## Challenges
-* Learning and implementing the speech recognition API
-* Learning and implementing the Bootstrap framework with responsiveness in mind
+* Creating a responsive, mobile-first UI
+* Learning and implementing the Bootstrap framework
 * Implementing meaningful progress tracking for individual users
+* Acquiring a custom domain with HTTPS certification
