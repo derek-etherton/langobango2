@@ -1,0 +1,11 @@
+{
+  "name": "langobango",
+  "version": "1.0.0",
+  "description": "LangoBango is a web-based voice recognition application that provides speech driven, language related challenges. Users will be shown a series of phrases and asked to pronounce them verbally. A score will be tallied as to how many words the speech recognizer is able to match with the given phrase, and display a final score at the end once all phrases have been completed.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
