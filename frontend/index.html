@@ -8,9 +8,15 @@
 <body>
 	<div id="content">
 		   <div class="example" id="speech">
-				  <h1>Speech</h1>
-				  <button id="start_speech">start speech detect</button>
-				  <textarea class="form_element" id="textarea" placeholder="Speak to me!"></textarea>
+				<h1>LangoBango</h1>
+				<button id="start_speech">START</button>
+				<div id="results">
+					<span class="question" id="question_span">Try to say: Hello world</span>
+				</div>
+				<div id="results">
+					<span class="final" id="final_span"></span> 
+					<span class="interim" id="interim_span"></span>
+				</div>
 			</div>
 	</div>
     <script src="js/view.js" type="text/javascript"></script>

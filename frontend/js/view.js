@@ -2,26 +2,27 @@
 var view = (function(){
 	"use strict";
 	
+	var final_transcript = '';
+	
 	var recognition = new webkitSpeechRecognition();
-	recognition.continuous = true;
+	recognition.continuous = false;	//allows for end of speech detection
 	recognition.interimResults = true;
 	recognition.lang = "en";
 	
 	autoRequestMedia: true;
 	
-	recognition.onresult = function (event) {
-		for (var i = event.resultIndex; i < event.results.length; ++i) {
-			document.getElementById('textarea').value = event.results[i][0].transcript;
-		}
-	};
-	
 	document.getElementById("start_speech").onclick = function(e){
 		record_on();
 	}
 	
+	var first_char = /\S/;
+	function capitalize(s) {
+		return s.replace(first_char, function(m) { return m.toUpperCase(); });
+	}
+	
 	var record_on = function(){
 		var but = document.getElementById("start_speech");
-		but.innerHTML = "stop speech detect";
+		but.innerHTML = "STOP";
 		document.getElementById("start_speech").onclick = function(e){
 			record_off();
 		}
@@ -31,11 +32,48 @@ var view = (function(){
 	var record_off = function(){
 		recognition.stop();
 		var but = document.getElementById("start_speech");
-		but.innerHTML = "start speech detect";
+		but.innerHTML = "START";
 		document.getElementById("start_speech").onclick = function(e){
 			record_on();
 		}
 	};
+	
+	recognition.onresult = function (event) {
+		var interim_transcript = '';
+		
+		if (typeof(event.results) == 'undefined') {
+		  recognition.onend = null;
+		  recognition.stop();
+		  return;
+		}
+		
+		for (var i = event.resultIndex; i < event.results.length; ++i) {
+			if (event.results[i].isFinal) {
+				final_transcript += event.results[i][0].transcript;
+			}else{
+				interim_transcript += event.results[i][0].transcript;
+			}
+		}
+		final_transcript = capitalize(final_transcript);
+		final_span.innerHTML = final_transcript;
+		interim_span.innerHTML = interim_transcript;
+	};
+	
+	recognition.onend = function (){
+		record_off();
+		console.log(final_transcript);
+	}
+	
+	recognition.onstart = function (){
+		//Clears the transcript 
+		final_transcript = '';
+		final_span.innerHTML = '';
+		interim_span.innerHTML = '';
+	}
+	
+	var score = function () {
+		// TODO scoring function, give points for each word the user gets right
+	}
 	
 	return view;
 	
