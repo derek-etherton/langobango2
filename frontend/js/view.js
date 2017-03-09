@@ -4,6 +4,7 @@ var view = (function(){
 	
 	var final_transcript = '';
 	
+	var toMatch = "";
 	var recognition = new webkitSpeechRecognition();
 	recognition.continuous = false;	//allows for end of speech detection
 	recognition.interimResults = true;
@@ -14,13 +15,15 @@ var view = (function(){
 	document.getElementById("start_speech").onclick = function(e){
 		record_on();
 	}
-	
+
 	var first_char = /\S/;
 	function capitalize(s) {
 		return s.replace(first_char, function(m) { return m.toUpperCase(); });
 	}
-	
+
 	var record_on = function(){
+		toMatch = "hello world";
+
 		var but = document.getElementById("start_speech");
 		but.innerHTML = "STOP";
 		document.getElementById("start_speech").onclick = function(e){
@@ -61,7 +64,9 @@ var view = (function(){
 	
 	recognition.onend = function (){
 		record_off();
-		console.log(final_transcript);
+		var result = score();
+		document.getElementById("score_text").innerHTML = "Score: " + result*100 + " %";
+		//console.log(Math.round(result*100) + "%");
 	}
 	
 	recognition.onstart = function (){
@@ -72,7 +77,16 @@ var view = (function(){
 	}
 	
 	var score = function () {
-		// TODO scoring function, give points for each word the user gets right
+		var res = final_transcript.split(" ");
+		var desired = toMatch.split(" ");
+		var count = 0;
+		var i;
+		for (i = 0; i < Math.min(desired.length, res.length); i++){
+			if (desired[i].toLowerCase() === res[i].toLowerCase()) {
+				count ++;
+			}
+		}
+		return count / desired.length;
 	}
 	
 	return view;
