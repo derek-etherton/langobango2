@@ -9,7 +9,7 @@ var view = (function(){
 	recognition.continuous = false;	//allows for end of speech detection
 	recognition.interimResults = true;
 	recognition.lang = "en";
-	
+
 	autoRequestMedia: true;
 	
 	document.getElementById("start_speech").onclick = function(e){
@@ -22,14 +22,17 @@ var view = (function(){
 	}
 
 	var record_on = function(){
-		toMatch = "hello world";
-
-		var but = document.getElementById("start_speech");
-		but.innerHTML = "STOP";
-		document.getElementById("start_speech").onclick = function(e){
-			record_off();
-		}
-		recognition.start();
+		console.log(recognition.lang);
+		model.getRandomPhrase(recognition.lang, function(err, res) {
+			toMatch = res;
+			document.getElementById("question_span").innerHTML = toMatch;
+			var but = document.getElementById("start_speech");
+			but.innerHTML = "STOP";
+			document.getElementById("start_speech").onclick = function(e){
+				record_off();
+			}
+			recognition.start();
+			});
 	};
 
 	var record_off = function(){
