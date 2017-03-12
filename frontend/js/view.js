@@ -15,43 +15,56 @@ var view = (function(){
 	document.getElementById("start_speech").onclick = function(e){
 		record_on();
 	}
+	
+	document.getElementById("start_tts").onclick = function(e){
+		speak_phrase();
+	}
+	
+	document.getElementById("new_phrase").onclick = function(e){
+		set_new_phrase();
+	}
 
 	var first_char = /\S/;
 	function capitalize(s) {
 		return s.replace(first_char, function(m) { return m.toUpperCase(); });
+	};
+	
+	window.onload = function(){
+		set_new_phrase();
 	}
-
-	var record_on = function(){
+	
+	var set_new_phrase = function(){
 		model.getRandomPhrase(recognition.lang, function(err, res) {
-			toMatch = res;
-			speak(toMatch);
-			
 			if (recognition.lang !== 'en'){
-				model.getTranslation(toMatch, function(err, result) {
-					document.getElementById("question_span").innerHTML = toMatch + ' (' + result + ')';
-					var but = document.getElementById("start_speech");
-					but.innerHTML = "STOP";
-					document.getElementById("start_speech").onclick = function(e){
-						record_off();
-					}
-					recognition.start();
+				model.getTranslation(res, function(err, result) {
+					document.getElementById("translation_span").innerHTML = result;
 				});
-			} else {
-				document.getElementById("question_span").innerHTML = toMatch;
-				var but = document.getElementById("start_speech");
-				but.innerHTML = "STOP";
-				document.getElementById("start_speech").onclick = function(e){
-					record_off();
-				}
-				recognition.start();
 			}
+			document.getElementById("question_span").innerHTML = res;
+		});
+	};
+	
+	var speak_phrase = function(){
+		speak(document.getElementById("question_span").innerHTML);
+	};
+	
+	var record_on = function(){
+		document.getElementById("score_text").innerHTML = "";
+		model.getRandomPhrase(recognition.lang, function(err, res) {
+			toMatch = document.getElementById("question_span").innerHTML;
+			var but = document.getElementById("start_speech");
+			but.src = "media/mic-on.png";
+			document.getElementById("start_speech").onclick = function(e){
+				record_off();
+			}
+			recognition.start();
 		});
 	};
 
 	var record_off = function(){
 		recognition.stop();
 		var but = document.getElementById("start_speech");
-		but.innerHTML = "START";
+		but.src = "media/mic.png";
 		document.getElementById("start_speech").onclick = function(e){
 			record_on();
 		}
