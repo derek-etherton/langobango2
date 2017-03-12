@@ -8,8 +8,8 @@ var view = (function(){
 	var recognition = new webkitSpeechRecognition();
 	recognition.continuous = false;	//allows for end of speech detection
 	recognition.interimResults = true;
-	recognition.lang = "fr";
-
+	recognition.lang = "de-DE";
+	
 	autoRequestMedia: true;
 	
 	document.getElementById("start_speech").onclick = function(e){
@@ -24,14 +24,28 @@ var view = (function(){
 	var record_on = function(){
 		model.getRandomPhrase(recognition.lang, function(err, res) {
 			toMatch = res;
-			document.getElementById("question_span").innerHTML = toMatch;
-			var but = document.getElementById("start_speech");
-			but.innerHTML = "STOP";
-			document.getElementById("start_speech").onclick = function(e){
-				record_off();
+			speak(toMatch);
+			
+			if (recognition.lang !== 'en'){
+				model.getTranslation(toMatch, function(err, result) {
+					document.getElementById("question_span").innerHTML = toMatch + ' (' + result + ')';
+					var but = document.getElementById("start_speech");
+					but.innerHTML = "STOP";
+					document.getElementById("start_speech").onclick = function(e){
+						record_off();
+					}
+					recognition.start();
+				});
+			} else {
+				document.getElementById("question_span").innerHTML = toMatch;
+				var but = document.getElementById("start_speech");
+				but.innerHTML = "STOP";
+				document.getElementById("start_speech").onclick = function(e){
+					record_off();
+				}
+				recognition.start();
 			}
-			recognition.start();
-			});
+		});
 	};
 
 	var record_off = function(){
@@ -69,12 +83,11 @@ var view = (function(){
 		var result = score();
 		document.getElementById("score_text").innerHTML = "Score: " + result*100 + " %";
 		
-		if (final_transcript !== ''){
+		if (final_transcript !== '' & recognition.lang !== 'en'){
 			model.getTranslation(final_transcript, function(err, res) {
-				console.log(res);
+				final_span.innerHTML = final_transcript + " (" + res + ")";
 			});
 		}
-		//console.log(Math.round(result*100) + "%");
 	}
 	
 	recognition.onstart = function (){
@@ -82,6 +95,29 @@ var view = (function(){
 		final_transcript = '';
 		final_span.innerHTML = '';
 		interim_span.innerHTML = '';
+	}
+	
+	// Thanks Stephen Walther:
+	// http://stephenwalther.com/archive/2015/01/05/using-html5-speech-recognition-and-text-to-speech
+	function speak(text, callback) {
+		var u = new SpeechSynthesisUtterance();
+		u.rate = 0.5
+		u.text = text;
+		u.lang = recognition.lang;
+	 
+		u.onend = function () {
+			if (callback) {
+				callback();
+			}
+		};
+	 
+		u.onerror = function (e) {
+			if (callback) {
+				callback(e);
+			}
+		};
+	 
+		speechSynthesis.speak(u);
 	}
 	
 	var score = function () {
