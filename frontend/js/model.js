@@ -30,6 +30,12 @@ var model = (function(){
 			callback(err, res);
 		});
 	};
+	
+	model.getTranslation = function(phrase, callback) {
+		doAjax('GET', '/api/translate/' + phrase + '/', null, true, function(err, res) {
+			callback(err, res);
+		});
+	};
 
     return model;    
 }());

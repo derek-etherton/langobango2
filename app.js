@@ -1,5 +1,6 @@
 var express = require('express')
 var app = express();
+const translate = require('google-translate-api');
 
 app.use(express.static('frontend'));
 
@@ -21,6 +22,20 @@ app.get('/api/phrases/:lang/random/', function(req, res, next) {
 		res.json(FR_PHRASES[i]);
 	}
 	return next();
+});
+
+
+app.get('/api/translate/:phrase/', function(req, res, next) {
+	var phrase = req.params.phrase;
+	console.log(phrase);
+
+	translate(phrase, {to: 'en'}).then(result => {
+		res.json(result.text);
+		return next();
+	}).catch(err => {
+		console.error(err);
+		return next();
+	});
 });
 
 app.listen(process.env.PORT || 3000, function () {

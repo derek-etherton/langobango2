@@ -8,7 +8,7 @@ var view = (function(){
 	var recognition = new webkitSpeechRecognition();
 	recognition.continuous = false;	//allows for end of speech detection
 	recognition.interimResults = true;
-	recognition.lang = "en";
+	recognition.lang = "fr";
 
 	autoRequestMedia: true;
 	
@@ -22,7 +22,6 @@ var view = (function(){
 	}
 
 	var record_on = function(){
-		console.log(recognition.lang);
 		model.getRandomPhrase(recognition.lang, function(err, res) {
 			toMatch = res;
 			document.getElementById("question_span").innerHTML = toMatch;
@@ -46,13 +45,13 @@ var view = (function(){
 	
 	recognition.onresult = function (event) {
 		var interim_transcript = '';
-		
+
 		if (typeof(event.results) == 'undefined') {
 		  recognition.onend = null;
 		  recognition.stop();
 		  return;
 		}
-		
+
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
 			if (event.results[i].isFinal) {
 				final_transcript += event.results[i][0].transcript;
@@ -64,11 +63,17 @@ var view = (function(){
 		final_span.innerHTML = final_transcript;
 		interim_span.innerHTML = interim_transcript;
 	};
-	
+
 	recognition.onend = function (){
 		record_off();
 		var result = score();
 		document.getElementById("score_text").innerHTML = "Score: " + result*100 + " %";
+		
+		if (final_transcript !== ''){
+			model.getTranslation(final_transcript, function(err, res) {
+				console.log(res);
+			});
+		}
 		//console.log(Math.round(result*100) + "%");
 	}
 	
