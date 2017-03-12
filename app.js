@@ -45,7 +45,7 @@ app.get('/api/translate/:phrase/', function(req, res, next) {
 });
 
 app.get('/.well-known/acme-challenge/:content', function(req, res){
-	res.send(req.params.content);
+	res.send('kcxGQPaeTBI1vwhWXxpxQnL0n9a8D56sEtVSdDnsYO8.XjlwRXicJTVSxfHDcE1vPrhfQn3sItrnzg7O1m5dUDU');
 });
 
 app.listen(process.env.PORT || 3000, function () {
