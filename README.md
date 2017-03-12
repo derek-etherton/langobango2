@@ -27,6 +27,7 @@ LangoBango aims to be a more fun and whimsical way to train speech in different 
 3. Support for common phrases in multiple languages
 4. Gameification aspects with meaningful difficulty scaling
 5. Valid HTTPS certificate on a custom domain name (langobango.me)
+6. Translate user speech back to their preferred language, so they can see what they said
 
 ## Technology
 * HTML
@@ -45,4 +46,5 @@ LangoBango aims to be a more fun and whimsical way to train speech in different 
 * Creating a responsive, mobile-first UI
 * Learning and implementing the Bootstrap framework
 * Implementing meaningful progress tracking for individual users
+* Working with on-the-fly language changing for speech API and translation API
 * Acquiring a custom domain with HTTPS certification
