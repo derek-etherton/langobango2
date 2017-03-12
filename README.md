@@ -45,4 +45,5 @@ LangoBango aims to be a more fun and whimsical way to train speech in different 
 * Creating a responsive, mobile-first UI
 * Learning and implementing the Bootstrap framework
 * Implementing meaningful progress tracking for individual users
+* Working with on-the-fly language changing for speech API and translation API
 * Acquiring a custom domain with HTTPS certification
