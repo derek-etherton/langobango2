@@ -44,6 +44,10 @@ app.get('/api/translate/:phrase/', function(req, res, next) {
 	});
 });
 
+app.get('/.well-known/acme-challenge/:content', function(req, res){
+	res.send(req.params.content);
+});
+
 app.listen(process.env.PORT || 3000, function () {
   console.log('App listening')
 });
