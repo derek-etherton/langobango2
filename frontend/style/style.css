@@ -43,7 +43,8 @@ html, body{
 
 .cont{
 	background: #fff;
-	height:100%;
+	min-height: 100%;
+	min-width: 210px;
 }
 
 .img_button{
