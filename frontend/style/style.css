@@ -37,6 +37,10 @@ html, body{
 	background: #00000000 !important;
 }
 
+.dropdown-menu {
+	background: #00000000 !important;
+}
+
 .cont{
 	background: #fff;
 	height:100%;

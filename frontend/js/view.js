@@ -23,7 +23,25 @@ var view = (function(){
 	document.getElementById("new_phrase").onclick = function(e){
 		set_new_phrase();
 	}
-
+	
+	document.getElementById("eng_selector").onclick = function(e){
+		setLanguage("en");
+	}
+	
+	document.getElementById("fr_selector").onclick = function(e){
+		setLanguage("fr");
+	}
+	
+	document.getElementById("de_de_selector").onclick = function(e){
+		setLanguage("de-DE");
+	}
+	
+	var setLanguage = function (lang) {
+		clearTranscript();
+		recognition.lang = lang;
+		set_new_phrase();
+	}
+	
 	var first_char = /\S/;
 	function capitalize(s) {
 		return s.replace(first_char, function(m) { return m.toUpperCase(); });
@@ -35,11 +53,10 @@ var view = (function(){
 	
 	var set_new_phrase = function(){
 		model.getRandomPhrase(recognition.lang, function(err, res) {
-			if (recognition.lang !== 'en'){
-				model.getTranslation(res, function(err, result) {
-					document.getElementById("translation_span").innerHTML = result;
-				});
-			}
+			clearTranscript();
+			model.getTranslation(res, function(err, result) {
+				document.getElementById("translation_span").innerHTML = result;
+			});
 			document.getElementById("question_span").innerHTML = res;
 		});
 	};
@@ -94,20 +111,22 @@ var view = (function(){
 	recognition.onend = function (){
 		record_off();
 		var result = score();
-		document.getElementById("score_text").innerHTML = "Score: " + result*100 + " %";
+		document.getElementById("score_text").innerHTML = "Score: " + Math.floor(result*100) + " %";
 		
-		if (final_transcript !== '' & recognition.lang !== 'en'){
-			model.getTranslation(final_transcript, function(err, res) {
-				final_span.innerHTML = final_transcript + " (" + res + ")";
-			});
-		}
+		model.getTranslation(final_transcript, function(err, res) {
+			final_span.innerHTML = final_transcript + " (" + res + ")";
+		});
 	}
 	
 	recognition.onstart = function (){
-		//Clears the transcript 
+		clearTranscript();
+	}
+	
+	var clearTranscript = function () {
 		final_transcript = '';
 		final_span.innerHTML = '';
 		interim_span.innerHTML = '';
+		document.getElementById("score_text").innerHTML = '';
 	}
 	
 	// Thanks Stephen Walther:

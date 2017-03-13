@@ -20,6 +20,7 @@ app.use(function (req, res, next){
 
 app.get('/api/phrases/:lang/random/', function(req, res, next) {
 	var lang = req.params.lang;
+	// TODO: Make function of size of lang
 	var i = Math.floor((Math.random() * 10));
 	if (lang === "en") {
 		res.json(ENG_PHRASES[i]);
