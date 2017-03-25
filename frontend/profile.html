@@ -42,6 +42,30 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="">LangoBango</a>
+		 </div>
+		  <div id="navbar" class="collapse navbar-collapse">
+			<ul class="signin hidden-xs">
+				<li id="login">
+				  <a id="login-trigger" href="#">
+					Log in <span>▼</span>
+				  </a>
+				  <div id="login-content">
+					<form>
+					  <fieldset id="inputs">
+						<input id="username" type="username" name="Username" placeholder="Username" required>   
+						<input id="password" type="password" name="Password" placeholder="Password" required>
+					  </fieldset>
+						<input class="btn btn-primary" type="submit" id="submit" value="Log in">
+					</form>
+				  </div>                     
+				</li>
+				<li id="signup">
+				  <a href="signup.html">Sign up</a>
+				</li>
+			 </ul>
+          <ul class="nav navbar-nav">
+			<li><a href="index.html">Home</a></li>
+			<li><a href="profile.html">My Profile</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -49,9 +73,31 @@
 
     <div class="cont">
 		<div id="content" class="text-center">
-			<!--- ToDo: signup forms-->
+			<div class="profile-info-header">
+				<p class="username-label">Username</p>
+			</div>
+			<div class="profile-info-header">
+				<p>Scoreboard</p>
+				<table class="scoreboard">
+				  <tr class="cols">
+					<th>Language</th>
+					<th>Your Score</th> 
+				  </tr>
+				  <tr class="values">
+					<td>English</td>
+					<td>0</td> 
+				  </tr>
+				  <tr class="values">
+					<td>French</td>
+					<td>0</td> 
+				  </tr>
+				  <tr class="values">
+					<td>Russian</td>
+					<td>0</td> 
+				  </tr>
+				</table>
+			</div>
 		</div>
-
     </div><!-- /.container -->
 	
 	<nav class="navbar navbar-inverse navbar-fixed-bottom">
@@ -77,6 +123,7 @@
 
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="style/style.css" type="text/css" media="all">
+	<link rel="stylesheet" href="style/style-profile.css" type="text/css" media="all">
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="js/view.js" type="text/javascript"></script>

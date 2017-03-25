@@ -1,0 +1,17 @@
+html, body {
+    width: 100%;
+}
+table {
+    margin: 0px auto;
+}
+
+th {
+	padding: 16px;
+}
+
+.username-label{
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 24px;
+}
+
