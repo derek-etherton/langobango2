@@ -36,6 +36,25 @@ var view = (function(){
 		setLanguage("de-DE");
 	}
 	
+	// Sign in
+	document.getElementById("submit").onclick = function(e){
+		e.preventDefault();
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("password").value;
+		model.signIn({"username" : username, "password" : password}, function(err, res){
+			if (err) {
+				alert("Invalid login");
+			}
+			if (res) {
+				document.getElementById("signin-bar").innerHTML = '<li id="signout">\
+				  <a href="#signout">Sign Out</a>\
+				</li>'
+				document.getElementById("profile_link").style.display = "block";
+			}
+			console.log(res);
+		});
+	}
+	
 	var setLanguage = function (lang) {
 		clearTranscript();
 		recognition.lang = lang;

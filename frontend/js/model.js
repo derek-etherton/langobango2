@@ -24,6 +24,26 @@ var model = (function(){
     };
 
     var model = {};
+	var activeUser;
+
+	model.signIn = function(data, callback) {
+		doAjax('POST', '/api/signin/', data, true, function(err, res) {
+			activeUser = res;
+			callback(err, res);
+		});
+	}
+	
+	model.signUp = function(data, callback) {
+		doAjax('PUT', '/api/users/', data, true, function(err, res) {
+			callback(err, res);
+		});
+	}
+	
+	model.signOut = function(callback) {
+		doAjax('GET', '/api/signout/', null, false, function(err, res) {
+			callback(err, res);
+		});
+	}
 
 	model.getRandomPhrase = function(lang, callback) {
 		doAjax('GET', '/api/phrases/' + lang + '/random/', null, true, function(err, res) {
