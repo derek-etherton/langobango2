@@ -242,7 +242,7 @@ var view = (function(){
 	var show_final_score = function() {
 		model.getFinalScore(function(err, res) {
 			document.getElementById("start_tts").style.display = 'none';
-			document.getElementById("question_span").innerHTML = res + " %";
+			document.getElementById("question_span").innerHTML = "You scored: " + res + " %";
 		});
 	}
 	

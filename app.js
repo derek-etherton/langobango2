@@ -112,7 +112,6 @@ app.get('/api/signout/', function (req, res, next) {
 
 // GET USER
 app.get('/api/users/:username/', function (req, res, next) {
-	console.log(req.params.username);
 	users.findOne({username:req.params.username}, function(err, user){
 		if (err) return res.status(500).end(err);
 		return res.json(user);
@@ -133,7 +132,6 @@ app.patch('/api/users/:username/scores/', function (req, res, next) {
 
 		var data = user.scores;
 		data[req.body.language] = req.body.score;
-		console.log(req.body);
 		users.update({username : req.params.username}, {$set: { scores : data } },  {multi:false}, function (err, n) {
 			if (err) return res.status(404);
 			return res.json("Update successful");

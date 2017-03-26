@@ -1,5 +1,7 @@
 (function(){
 	"use strict";
+	
+	var READABLE_LANGS = {"en" : "English", "de-DE" : "German", "fr" : "French"};
 
 	window.onload = function(){
 		model.getActiveUsername(function (err, res) {
@@ -11,7 +13,18 @@
 				model.getUser(res, function(err, res){
 					var user = res;
 					document.getElementById("username-label").innerHTML = user.username;
-					console.log(user.scores);
+					var scores = user.scores;
+					
+					if (Object.keys(user.scores).length === 0){
+						document.getElementById("scoreboard").innerHTML = "You haven't completed any language sets yet!";
+					} else {
+						for (var key in user.scores) {
+							document.getElementById("scoreboard").innerHTML += '<tr class="values">\
+											<td>' + READABLE_LANGS[key] + '</td>\
+											<td>' + user.scores[key] + ' %</td>\
+										  </tr>'
+						}
+					}
 				});
 			}
 		});
