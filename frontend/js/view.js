@@ -73,6 +73,7 @@ var view = (function(){
 	};
 
 	window.onload = function(){
+		document.getElementById('result-area').style.display = 'none';
 		model.getActiveUsername(function (err, res) {
 			if (err){
 				setLanguage("de-DE");
@@ -215,7 +216,7 @@ var view = (function(){
 	
 	var login = function() {
 		document.getElementById("signin-bar").innerHTML = '<li id="signout">\
-		  <a href="#signout">Sign Out</a>\
+		  <a href="#">Sign Out</a>\
 		</li>'
 		document.getElementById("profile_link").style.display = "block";
 		document.getElementById("signout").onclick = function() {
@@ -241,8 +242,10 @@ var view = (function(){
 	
 	var show_final_score = function() {
 		model.getFinalScore(function(err, res) {
-			document.getElementById("start_tts").style.display = 'none';
-			document.getElementById("question_span").innerHTML = "You scored: " + res + " %";
+			document.getElementById("question-area").style.display = 'none';
+			document.getElementById("translation-area").style.display = 'none';
+			document.getElementById("result-area").style.display = 'block';
+			document.getElementById("result-span").innerHTML = res + " %";
 		});
 	}
 	

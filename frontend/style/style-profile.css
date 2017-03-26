@@ -1,17 +1,39 @@
-html, body {
-    width: 100%;
-}
 table {
     margin: 0px auto;
+}
+
+table {
+    border: 2px solid #ddd;
+    border-collapse: separate;
+    border-radius: 4px;
+	border-radius: 25px;
 }
 
 th {
 	padding: 16px;
 }
 
-.username-label{
-	font-size: 24px;
+td {
+	padding: 16px 16px 16px 32px;
+}
+
+#profile-intro{
+	font-size: 36px;
+	margin-bottom: 16px;
+	padding-top: 16px;
+}
+
+#username-label{
+	font-size: 32px;
 	font-weight: bold;
-	margin-bottom: 24px;
+	margin-bottom: 64px;
+	color: #3366ff
+}
+
+#score-title{
+	font-size: 28px;
+	font-weight: bold;
+	margin-top: 36px;
+	margin-bottom: 12px;
 }
 

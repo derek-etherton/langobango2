@@ -42,27 +42,26 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="index.html">LangoBango</a>
+		  <ul class="signin" id="signin-bar">
+			<li id="login">
+			  <a id="login-trigger" href="#"> Log in <span>▼</span></a>
+			  <div id="login-content">
+				<form>
+				  <fieldset id="inputs">
+					<input id="username" type="username" name="Username" placeholder="Username" required>   
+					<input id="password" type="password" name="Password" placeholder="Password" required>
+				  </fieldset>
+					<input class="btn btn-primary" type="submit" id="submit" value="Log in">
+				</form>
+			  </div>                     
+			</li>
+			<li id="signup">
+			  <a href="signup.html">Sign up</a>
+			</li>
+		  </ul>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-			<ul class="signin hidden-xs" id="signin-bar">
-				<li id="login">
-				  <a id="login-trigger" href="#">
-					Log in <span>▼</span>
-				  </a>
-				  <div id="login-content">
-					<form>
-					  <fieldset id="inputs">
-						<input id="username" type="username" name="Username" placeholder="Username" required>   
-						<input id="password" type="password" name="Password" placeholder="Password" required>
-					  </fieldset>
-						<input class="btn btn-primary" type="submit" id="submit" value="Log in">
-					</form>
-				  </div>                     
-				</li>
-				<li id="signup">
-				  <a href="signup.html">Sign up</a>
-				</li>
-			 </ul>
+			
           <ul class="nav navbar-nav">
 			<li><a href="index.html">Home</a></li>
 			<li id="profile_link" style="display:none;"><a href="profile.html">My Profile</a></li>
@@ -112,11 +111,19 @@
 					
 					<div class="row">
 						<div class="display-text col-sm-1"></div>
-						<div class="display-text col-sm-6 helper-text">
-							<p>Try to say:</p>
+						<div id="result-area" class="display-text col-sm-10 helper-text">
+							<p id="result-prompt">Your Final Score Is...</p>
+							<span id="result-span">0</span>
+						</div>
+						<div class="display-text col-sm-1"></div>
+					</div>
+					<div class="row">
+						<div class="display-text col-sm-1"></div>
+						<div id="question-area" class="display-text col-sm-6 helper-text">
+							<p id="question-prompt">Try to say:</p>
 							<span class="question-text" id="question_span">Hello world</span>
 						</div>
-						<div class="display-text col-sm-4 helper-text">
+						<div id="translation-area" class="display-text col-sm-4 helper-text">
 							<p>Translation:</p>
 							<span class="question-text" id="translation_span"></span>
 						</div>

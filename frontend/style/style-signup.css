@@ -6,3 +6,12 @@
 #signup-submit{
 	margin-top: 48px;
 }
+
+#inputs{
+	margin: 16px;
+}
+
+.btn{
+	width: 200px;
+	font-size: 28px;
+}

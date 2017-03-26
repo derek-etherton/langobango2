@@ -8,6 +8,7 @@ html, body{
 	height:100%;
 }
 
+
 .question-text{
 	font-weight: bold;
 }
@@ -68,15 +69,25 @@ html, body{
 	background: linear-gradient(#000033, #000000);
 }
 
+#result-prompt{
+	font-size: 28px;
+}
+
+#result-span{
+	font-size: 24px;
+	font-style: bold;
+}
+
 /*CSS for login dropdown*/
 .signin{
-  margin-top: 8px;
+  margin-top: 12px;
   padding-bottom: 0;
   list-style: none;
   position: relative;
   float: right;
   background: #eee;
-  border-radius: 3px;    
+  border-radius: 3px; 
+  
 }
 
 nav li {
@@ -89,7 +100,8 @@ nav #login {
 }
 
 nav #login-trigger,
-nav #signup a {
+nav #signup a,
+nav #signout a{
   height: 25px;
   line-height: 25px;
   font-weight: bold;
@@ -98,10 +110,19 @@ nav #signup a {
   color: #444;
   text-shadow: 0 1px 0 #fff;
   padding-bottom: 0px;
+  margin-right: 32px;
 }
 
 nav #signup a {
   border-radius: 0 3px 3px 0;
+}
+
+nav #signout a {
+  border-radius: 0 3px 3px 0;
+}
+
+nav #login-trigger {
+  border-radius: 3px 0 0 3px;
 }
 
 nav #login-trigger {
@@ -154,7 +175,7 @@ nav li #login-content {
 /*--------------------*/
 
 #login #actions {
-  margin: 10px 0 0 0;
+  margin: 0 0 0 0;
 }
 
 #login #submit {
