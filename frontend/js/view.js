@@ -23,6 +23,10 @@ var view = (function(){
 	document.getElementById("new_phrase").onclick = function(e){
 		set_new_phrase();
 	}
+		
+	document.getElementById("score_button").onclick = function(e){
+		show_final_score();
+	}
 	
 	document.getElementById("eng_selector").onclick = function(e){
 		setLanguage("en");
@@ -31,11 +35,11 @@ var view = (function(){
 	document.getElementById("fr_selector").onclick = function(e){
 		setLanguage("fr");
 	}
-	
+
 	document.getElementById("de_de_selector").onclick = function(e){
 		setLanguage("de-DE");
 	}
-	
+
 	// Sign in
 	document.getElementById("submit").onclick = function(e){
 		e.preventDefault();
@@ -46,41 +50,64 @@ var view = (function(){
 				alert("Invalid login");
 			}
 			if (res) {
-				document.getElementById("signin-bar").innerHTML = '<li id="signout">\
-				  <a href="#signout">Sign Out</a>\
-				</li>'
-				document.getElementById("profile_link").style.display = "block";
+				login();
 			}
-			console.log(res);
 		});
 	}
-	
+
 	var setLanguage = function (lang) {
 		clearTranscript();
 		recognition.lang = lang;
-		set_new_phrase();
+		model.loadPhraseSet(lang, function(err, res) {
+			if (err) {
+				console.log(err);
+			}
+			
+			set_new_phrase();
+		});
 	}
-	
+
 	var first_char = /\S/;
 	function capitalize(s) {
 		return s.replace(first_char, function(m) { return m.toUpperCase(); });
 	};
-	
+
 	window.onload = function(){
-		set_new_phrase();
+		model.getActiveUsername(function (err, res) {
+			if (err){
+				setLanguage("de-DE");
+			}
+			
+			if (res !== "") {
+				login();
+			}
+			setLanguage("de-DE");
+		});
 	}
-	
+
 	var set_new_phrase = function(){
-		model.getRandomPhrase(recognition.lang, function(err, res) {
+		model.getNextPhrase(recognition.lang, function(err, res) {
 			clearTranscript();
-			model.getTranslation(res, function(err, result) {
+
+			if (err) {
+				console.log(err);
+			}
+			
+			var phrase = res.phrase;
+
+			model.getTranslation(phrase, function(err, result) {
 				document.getElementById("translation_span").innerHTML = result;
 			});
-			document.getElementById("question_span").innerHTML = res;
+
+			if (res.finalPhrase){
+				document.getElementById("new_phrase").style.display = 'none';
+				document.getElementById("score_button").style.display = 'block';
+			}
+			document.getElementById("question_span").innerHTML = phrase;
 		});
 	};
 	
-	var speak_phrase = function(){
+	var speak_phrase = function() {
 		speak(document.getElementById("question_span").innerHTML);
 	};
 	
@@ -129,8 +156,10 @@ var view = (function(){
 
 	recognition.onend = function (){
 		record_off();
-		var result = score();
-		document.getElementById("score_text").innerHTML = "Score: " + Math.floor(result*100) + " %";
+		var result = Math.floor(score()*100);
+		model.addScore(result);
+
+		document.getElementById("score_text").innerHTML = "Score: " + result + " %";
 		
 		model.getTranslation(final_transcript, function(err, res) {
 			final_span.innerHTML = final_transcript + " (" + res + ")";
@@ -182,6 +211,39 @@ var view = (function(){
 			}
 		}
 		return count / desired.length;
+	}
+	
+	var login = function() {
+		document.getElementById("signin-bar").innerHTML = '<li id="signout">\
+		  <a href="#signout">Sign Out</a>\
+		</li>'
+		document.getElementById("profile_link").style.display = "block";
+		document.getElementById("signout").onclick = function() {
+			model.signOut(function(err, res){
+				if(err){
+				
+				} else {
+					logout();
+				}
+			});
+		};
+	}
+	
+	var logout = function() {
+		model.signOut(function(err, res) {
+			if (err){
+				
+			}
+			
+			location.reload();
+		});
+	}
+	
+	var show_final_score = function() {
+		model.getFinalScore(function(err, res) {
+			document.getElementById("start_tts").style.display = 'none';
+			document.getElementById("question_span").innerHTML = res + " %";
+		});
 	}
 	
 	// Function to handle sign-in dropdown in the navbar

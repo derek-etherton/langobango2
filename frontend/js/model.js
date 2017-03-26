@@ -1,5 +1,10 @@
 var model = (function(){
     "use strict";
+	
+	var phraseSet;
+	var activeLang;
+	var phraseIndex = -1;
+	var scores;
 
 	var doAjax = function (method, url, body, json, callback){
 		var xhttp = new XMLHttpRequest();
@@ -51,11 +56,84 @@ var model = (function(){
 		});
 	};
 	
+	model.loadPhraseSet = function(lang, callback) {
+		doAjax('GET', '/api/phrases/' + lang + '/', null, true, function(err, res) {
+			if (err) {
+				callback(err, res);
+			}
+
+			activeLang = lang;
+			phraseIndex = -1;
+			phraseSet = res;
+			scores = [phraseSet.size];
+			callback(err, phraseSet);
+		});
+	};
+
+	
+	model.getNextPhrase = function(lang, callback) {
+		phraseIndex += 1;
+		var result = {};
+		result.phrase = phraseSet[phraseIndex];
+		if (phraseIndex == phraseSet.length - 1) {
+			result.finalPhrase = true;
+		}
+		
+		scores[phraseIndex] = 0;
+		callback(null, result);
+	};
+
 	model.getTranslation = function(phrase, callback) {
 		doAjax('GET', '/api/translate/' + phrase + '/', null, true, function(err, res) {
 			callback(err, res);
 		});
 	};
 
+	model.addScore = function (score) {
+		if (score) {
+			scores[phraseIndex] = score;
+		}
+	}
+	
+	model.getFinalScore = function (callback) {
+		var score = finalScore();
+
+		model.getActiveUsername(function(err, res){
+			model.updateUserScore(res, {"language" : activeLang, "score" : score});
+		});
+	
+		callback(null, score);
+	}
+	
+	model.updateUserScore = function(username, data){
+		doAjax("PATCH", "/api/users/" + username + "/scores/", data, true, function(err, res){
+			
+		});
+	}
+	
+	model.getUser = function(username, callback){
+		doAjax('GET', '/api/users/' + username + '/', null, true, function(err, res) {
+			callback(err, res);
+		});
+	}
+	
+	var finalScore = function(){
+		var sum = 0;
+		for (var i = 0; i < scores.length; i++){
+			sum += scores[i];
+		}
+
+		return Math.floor(sum/scores.length);
+	}
+
+    model.getActiveUsername = function(callback) {
+        var keyValuePairs = document.cookie.split('; ');
+        for(var i in keyValuePairs){
+            var keyValue = keyValuePairs[i].split('=');
+            if(keyValue[0] === 'username') return callback(null, keyValue[1]);
+        }
+        return callback("No active user", null);
+    }
+	
     return model;    
 }());

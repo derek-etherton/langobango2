@@ -38,6 +38,7 @@ var User = function(user){
     var hash = crypto.createHmac('sha512', salt);
     hash.update(user.password);
     this.username = user.username;
+	this.scores = {};
 	this.email = user.email;
     this.salt = salt;
     this.saltedHash = hash.digest('base64');
@@ -90,11 +91,12 @@ app.post('/api/signin/', function (req, res, next) {
         if (err) return res.status(500).end(err);
         if (!user || !checkPassword(user, req.body.password)) return res.status(401).end("Unauthorized");
         req.session.user = user;
-		res.setHeader('Set-Cookie', cookie.serialize('username', String(user.username), {
-			secure: true,
-			sameSite: true,
-			maxAge: 60 * 60 * 24 * 7 // 1 week 
-		}));
+        res.cookie('username', user.username);
+		// res.setHeader('Set-Cookie', cookie.serialize('username', String(user.username), {
+			// secure: true,
+			// sameSite: true,
+			// maxAge: 60 * 60 * 24 * 7 // 1 week 
+		// }));
         return res.json(user);
     });
 });
@@ -103,10 +105,43 @@ app.post('/api/signin/', function (req, res, next) {
 app.get('/api/signout/', function (req, res, next) {
     req.session.destroy(function(err) {
         if (err) return res.status(500).end(err);
+        res.cookie('username', "");
         return res.end();
     });
 });
 
+// GET USER
+app.get('/api/users/:username/', function (req, res, next) {
+	console.log(req.params.username);
+	users.findOne({username:req.params.username}, function(err, user){
+		if (err) return res.status(500).end(err);
+		return res.json(user);
+	});
+});
+
+// UPDATE USER SCORE
+app.patch('/api/users/:username/scores/', function (req, res, next) {
+    if (!req.session.user) return res.status(403).end("Forbidden");
+    // var data = {};
+    // data[req.body.language] = req.body.score;
+	users.findOne({username:req.params.username}, function(err, user){
+        if (err) return res.status(500).end(err);
+
+		if (req.session.user.username != user.username){
+			return res.status(403).end("Forbidden");
+		}
+
+		var data = user.scores;
+		data[req.body.language] = req.body.score;
+		console.log(req.body);
+		users.update({username : req.params.username}, {$set: { scores : data } },  {multi:false}, function (err, n) {
+			if (err) return res.status(404);
+			return res.json("Update successful");
+		});
+	});
+});
+
+// GEN RANDOM PHRASE
 app.get('/api/phrases/:lang/random/', function(req, res, next) {
 	var lang = req.params.lang;
 	// TODO: Make function of size of lang
@@ -117,6 +152,20 @@ app.get('/api/phrases/:lang/random/', function(req, res, next) {
 		res.json(FR_PHRASES[i]);
 	} else if (lang === "de-DE") {
 		res.json(DE_DE_PHRASES[i]);
+	}
+	return next();
+});
+
+// Get phrase set
+app.get('/api/phrases/:lang/', function(req, res, next) {
+	var lang = req.params.lang;
+	
+	if (lang === "en") {
+		res.json(ENG_PHRASES);
+	} else if (lang === "fr") {
+		res.json(FR_PHRASES);
+	} else if (lang === "de-DE") {
+		res.json(DE_DE_PHRASES);
 	}
 	return next();
 });
