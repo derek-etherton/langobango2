@@ -131,8 +131,7 @@ app.patch('/api/users/:username/scores/', function (req, res, next) {
 		}
 
 		var data = user.scores;
-		console.log(data[req.body.language] + " : " + req.body.score);
-		if (data[req.body.language] === null || req.body.score > data[req.body.language]){
+		if (!data[req.body.language] || req.body.score > data[req.body.language]){
 			data[req.body.language] = req.body.score;
 			users.update({username : req.params.username}, {$set: { scores : data } },  {multi:false}, function (err, n) {
 				if (err) return res.status(404);
