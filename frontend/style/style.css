@@ -8,7 +8,6 @@ html, body{
 	height:100%;
 }
 
-
 .question-text{
 	font-weight: bold;
 }
@@ -21,14 +20,13 @@ html, body{
 }
 
 .results-container{
-	margin-top: 32px;
+	margin-top: 16px;
 	font-size: 120%;
 	height: 128px;
 }
 
 .btn-primary{
 	padding: 16px;
-	margin: 16px;
 	margin-top: 16px;
 	font-weight: bold;
 	
@@ -49,7 +47,7 @@ html, body{
 }
 
 .img_button{
-	margin-top: 32px;
+	margin-top: 16px;
 	width: 80px;
 }
 
@@ -110,7 +108,7 @@ nav #signout a{
   color: #444;
   text-shadow: 0 1px 0 #fff;
   padding-bottom: 0px;
-  margin-right: 32px;
+  margin-right: 0px;
 }
 
 nav #signup a {
@@ -150,7 +148,7 @@ nav #login-content {
 
 nav li #login-content {
   right: 0;
-  width: 350px;
+  width: 260px;
 }
 
 /*--------------------*/
@@ -159,7 +157,7 @@ nav li #login-content {
   background: #f1f1f1;
   padding: 6px 5px;
   margin: 0 0 5px 0;
-  width: 334px;
+  width: 244px;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-shadow: 0 1px 1px #ccc inset;
@@ -182,7 +180,7 @@ nav li #login-content {
   text-align: center;
   height: 30px;
   padding: 0;
-  width: 100px;
+  width: 200px;
 }
 
 

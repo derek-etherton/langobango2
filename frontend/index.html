@@ -41,7 +41,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">LangoBango</a>
+          <a class="navbar-brand hidden-xs" href="index.html">LangoBango</a>
 		  <ul class="signin" id="signin-bar">
 			<li id="login">
 			  <a id="login-trigger" href="#"> Log in <span>▼</span></a>
@@ -82,26 +82,25 @@
 		<div id="content" class="text-center">
 			   <div id="speech">
 					<div class="row">
-						<h1 class="row-md-12 text-center">Welcome to LangoBango!</h1>
+						<h1 class="row-md-12 text-center hidden-xs">Welcome to LangoBango!</h1>
+						<h3 class="row-md-12 text-center visible-xs hidden-xs-up">Welcome to LangoBango!</h3>
 					</div>
-					<h4 class="row-md-12">Click on the mic to get started.</h4>
-					
+					<h4 class="row-md-12 hidden-xs">Click on the mic to get started.</h4>
 					<div class="results-container results-test" id="results">
-					<p>You said:</p>
-					<div class="row">
-						<div class="col-md-6 col-md-offset-1">
-							<span class="final" id="final_span"></span> 
-							<span class="interim" id="interim_span"></span>
-						</div>
-						<div class="col-md-3">
-							<div id="score">
-								<p id="score_text"/>
+						<h3>You said:</h3>
+						<div class="row">
+							<div class="col-md-6 col-md-offset-1">
+								<span class="final" id="final_span"></span> 
+								<span class="interim" id="interim_span"></span>
 							</div>
+							<div class="col-md-3">
+								<div id="score">
+									<p id="score_text"/>
+								</div>
+							</div>
+							<div class="col-md-2"></div>
 						</div>
-						<div class="col-md-2"></div>
 					</div>
-				</div>
-					
 					
 					<div class="row">
 						<div class="col-sm-12 text-center">
@@ -147,7 +146,7 @@
 
     </div><!-- /.container -->
 	
-	<nav class="navbar navbar-inverse navbar-fixed-bottom">
+	<nav class="navbar navbar-inverse navbar-fixed-bottom hidden-xs">
 		<div class="footer">
 			<p>Copyright © 2017 LangoBango. All Rights Reserved </p>
 		</div>

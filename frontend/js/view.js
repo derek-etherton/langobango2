@@ -246,6 +246,8 @@ var view = (function(){
 			document.getElementById("translation-area").style.display = 'none';
 			document.getElementById("result-area").style.display = 'block';
 			document.getElementById("result-span").innerHTML = res + " %";
+			document.getElementById("score_button").style.display = 'none';
+			document.getElementById("start_tts").style.display = 'none';
 		});
 	}
 	
