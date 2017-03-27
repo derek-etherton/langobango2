@@ -165,7 +165,7 @@ var view = (function(){
 		model.getTranslation(final_transcript, function(err, res) {
 			final_span.innerHTML = final_transcript + " (" + res + ")";
 		});
-	}
+	};
 	
 	recognition.onstart = function (){
 		clearTranscript();
