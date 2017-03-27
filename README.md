@@ -6,6 +6,10 @@ LangoBango
 * Alex Cavanagh
 * Derek Etherton
 
+## Domain Name
+
+http://www.langobango.me
+
 ## Application Description
 LangoBango is a web-based voice recognition application that 
 provides speech driven, language related challenges. Users will
