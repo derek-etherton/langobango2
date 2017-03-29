@@ -10,6 +10,10 @@ LangoBango
 
 http://www.langobango.me
 
+## Link To Youtube Video
+
+https://www.youtube.com/watch?v=k09LA1TeeNw&t=2s
+
 ## Application Description
 LangoBango is a web-based voice recognition application that 
 provides speech driven, language related challenges. Users will
