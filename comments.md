@@ -1,1 +1,0 @@
-Speech recognition is built in the browser. I showed that in class, it's 5 lines of javascript code. This is not a challenge. The rest of the features seem to be related to AI rather than webapps. This course is not an AI course. Make sure to have web technical challenges. Otherwise you cannot expect higher than a C grade for this project. 
